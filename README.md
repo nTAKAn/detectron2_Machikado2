@@ -99,6 +99,6 @@ Machikado_evaluate.ipynb を実行すればOK！
 > MetadataCatalog.get('test').set(thing_classes=CAT_NAME_JP)
 > 
 > # VoTT のカテゴリ名はこっち
-> #MetadataCatalog.get('train').set(thing_classes=list(CAT_NAME2ID..> keys()))
+> #MetadataCatalog.get('train').set(thing_classes=list(CAT_NAME2ID.keys()))
 > #MetadataCatalog.get('test').set(thing_classes=list(CAT_NAME2ID.keys()))
 > ```
