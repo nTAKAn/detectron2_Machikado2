@@ -4,7 +4,7 @@
 使用しているのをカスタム版に切り替えてみます。
 
 ---
-<img src=https://user-images.githubusercontent.com/33882378/79041969-d4473e00-7c2e-11ea-9072-b24d55bb4762.jpg>
+<img src=https://user-images.githubusercontent.com/33882378/79108398-34fe8400-7db1-11ea-9b26-08e09e13243f.jpg>
 
 AI学習モチベーション維持のために、まちカドまぞくが好きすぎるので detectron2 用のデータセットを　VoTT で作って試してみました。
 
