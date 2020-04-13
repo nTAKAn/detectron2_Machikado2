@@ -1,4 +1,6 @@
-__*
+.vscode/
 .ipynb_checkpoints/
 __pycache__/
 __images__/
+
+__pytest__.ipynb
