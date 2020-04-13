@@ -18,6 +18,14 @@ class ShearTransform(Transform):
                              [np.tan(np.deg2rad(angle_v)), 1, 0]])
         
     def apply_image(self, img: np.ndarray) -> np.ndarray:
+        """イメージの変形を行う
+        
+        Arguments:
+            img {np.ndarray} -- 元イメージ
+        
+        Returns:
+            np.ndarray -- 変形されたイメージ
+        """
         assert len(img.shape) == 3, '3ch のカラー画像のみを対象とする'
         
         h, w = img.shape[:2]
@@ -26,13 +34,28 @@ class ShearTransform(Transform):
         return cv2.warpAffine(img, self.mat, (w, h))
 
     def apply_coords(self, coords: np.ndarray) -> np.ndarray:
+        """領域座標変換
+        
+        Arguments:
+            coords {np.ndarray} -- 変換した座標
+        
+        Returns:
+            np.ndarray -- 変換された座標
+        """
         p = np.vstack([coords.T, np.ones((1, len(coords)))])
         p = np.dot(self.mat, p)
         
         return p.T
 
     def apply_polygons(self, polygons: list) -> list:
-        # まず回転
+        """ポリゴン（領域データの変換）
+        
+        Arguments:
+            polygons {list} -- [description]
+        
+        Returns:
+            list -- [description]
+        """
         polygons = [self.apply_coords(p) for p in polygons]
 
         # 画像範囲でクリッピング

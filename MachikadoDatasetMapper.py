@@ -26,22 +26,26 @@ class MachikadoDatasetMapper:
         self.bright_gen = None
         if custom_cfg.INPUT.BRIGHTNESS.ENABLED:
             self.bright_gen = T.RandomBrightness(custom_cfg.INPUT.BRIGHTNESS.RANGE[0], custom_cfg.INPUT.BRIGHTNESS.RANGE[1])
+
+        self.sat_gen = None
+        if custom_cfg.INPUT.SATURATION.ENABLED:
+            self.sat_gen = T.RandomSaturation(custom_cfg.INPUT.SATURATION.RANGE[0], custom_cfg.INPUT.SATURATION.RANGE[1])
             
         self.extent_gen = None
         if custom_cfg.INPUT.EXTENT.ENABLED:
             self.extent_gen = T.RandomExtent(scale_range=(1, 1), shift_range=custom_cfg.INPUT.EXTENT.SHIFT_RANGE)
-            
+        
         self.crop_gen = None
         if cfg.INPUT.CROP.ENABLED:
             self.crop_gen = T.RandomCrop(cfg.INPUT.CROP.TYPE, cfg.INPUT.CROP.SIZE)
             logging.getLogger(__name__).info('CropGen used in training: ' + str(self.crop_gen))
         
         self.rotate_gen = None
-        if custom_cfg.INPUT.ROTATE.ENABLE:
+        if custom_cfg.INPUT.ROTATE.ENABLED:
             self.rotate_gen = T.RandomRotation(custom_cfg.INPUT.ROTATE.ANGLE, expand=False)
         
         self.shear_gen = None
-        if custom_cfg.INPUT.SHEAR.ENABLE:
+        if custom_cfg.INPUT.SHEAR.ENABLED:
             self.shear_gen = RandomShear(custom_cfg.INPUT.SHEAR.ANGLE_H_RANGE, custom_cfg.INPUT.SHEAR.ANGLE_V_RANGE)
 
         self.tfm_gens = utils.build_transform_gen(cfg, is_train)
@@ -67,12 +71,15 @@ class MachikadoDatasetMapper:
             dataset_dict.pop('sem_seg_file_name', None)
             return dataset_dict
         
-        # 明るさ・コントラスト
+        # 明るさ・コントラスト・彩度
         if self.cont_gen is not None:
             tfm = self.cont_gen.get_transform(image)
             image = tfm.apply_image(image)
         if self.bright_gen is not None:
             tfm = self.bright_gen.get_transform(image)
+            image = tfm.apply_image(image)
+        if self.sat_gen is not None:
+            tfm = self.sat_gen.get_transform(image)
             image = tfm.apply_image(image)
             
         # アフィン

@@ -4,11 +4,11 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
 
-def plot_dataset_mapper(dataset_dicts, mapper):
+def plot_dataset_mapper(dataset_dicts, mapper, figsize=(16, 24)):
     """
     データマッパーの出力をテスト表示する
     """
-    plt.figure(figsize=(16, 24))  # サイズは調整してください
+    plt.figure(figsize=figsize)  # サイズは調整してください
 
     for i, dataset_dict in enumerate(random.sample(dataset_dicts, 10)):
         data = mapper(dataset_dict)
