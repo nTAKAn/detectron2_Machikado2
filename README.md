@@ -11,25 +11,20 @@
 ---
 ## 1.使い方
 
-### (1) 
+* detectron2_Machikado2 は detectron2 ディレクトリの下に clone してください。
 
-### (2) detectron2_Machikado2 は detectron2 ディレクトリの下に clone してください。
-detectron2 を git clone して出来た detectron2 ディレクトリの直下で clone してください。別に変えてもいいけど、その場合ディレクトリ関係のパスは修正してください。
+* 重みファイル、データセットは前回と同じなので、前回を参照してください。
 
-### (3) weight ファイルをダウンロードします。
-
-https://github.com/facebookresearch/detectron2/blob/master/MODEL_ZOO.md からダウンロードし、coco_models/ へコピーしてください。
-
-### (5) machikado データセットをダウンロード
-
-https://github.com/nTAKAn/detectron2_Machikado/releases/download/v1.0/machikado60_vott-json-export.zip
-
-ダウンロードし zipを展開後、vott-json-export ディレクトリの中身を detectron2_Machikado/vott-json-export ディレクトリにコピーしてください。
+https://github.com/nTAKAn/detectron2_Machikado
 
 ---
-## 2. 学習
+## 3. カスタム
 
+### [(1) データセットマッパー](./README_custom1.md)
 
+### [(2) トランスフォーム](./README_custom2.md)
+
+ 
 ---
-## 3. 推論
+## 3. 学習・推論
 
