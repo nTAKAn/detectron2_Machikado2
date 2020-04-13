@@ -1,13 +1,13 @@
 import copy
 import logging
-import torch
 import numpy as np
+import torch
 
 from detectron2.data import transforms as T
 from detectron2.data import detection_utils as utils
 
-from custom_config import get_custom_cfg
-from ShearTransform import ShearTransform, RandomShear
+from .custom_config import get_custom_cfg
+from .ShearTransform import ShearTransform, RandomShear
 
 
 class MachikadoDatasetMapper:
