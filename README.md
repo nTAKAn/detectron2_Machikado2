@@ -37,4 +37,4 @@ https://github.com/nTAKAn/detectron2_Machikado
 
 前回と AP, mAP を比較します。
 
-### [custom4_evaluate.ipynb](https://github.com/nTAKAn/detectron2_Machikado2/blob/master/)
+### [custom4_evaluate.ipynb](https://github.com/nTAKAn/detectron2_Machikado2/blob/master/custom4_evaluate.ipynb)
