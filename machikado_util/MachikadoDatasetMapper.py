@@ -6,7 +6,6 @@ import torch
 from detectron2.data import transforms as T
 from detectron2.data import detection_utils as utils
 
-from .custom_config import get_custom_cfg
 from .ShearTransform import ShearTransform, RandomShear
 
 
@@ -14,26 +13,26 @@ class MachikadoDatasetMapper:
     """
     カスタムデータマッパー
     """
-    def __init__(self, cfg, custom_cfg, is_train=True):
+    def __init__(self, cfg, is_train=True):
         assert cfg.MODEL.MASK_ON, '今回はセグメンテーションのみを対象にする'
         assert not cfg.MODEL.KEYPOINT_ON, 'キーポイントは扱わない'
         assert not cfg.MODEL.LOAD_PROPOSALS, 'pre-computed proposals っていうのがよくわからん・・・・とりあえず無効前提で'
         
         self.cont_gen = None
-        if custom_cfg.INPUT.CONTRAST.ENABLED:
-            self.cont_gen = T.RandomContrast(custom_cfg.INPUT.CONTRAST.RANGE[0], custom_cfg.INPUT.CONTRAST.RANGE[1])
+        if cfg.INPUT.CONTRAST.ENABLED:
+            self.cont_gen = T.RandomContrast(cfg.INPUT.CONTRAST.RANGE[0], cfg.INPUT.CONTRAST.RANGE[1])
             
         self.bright_gen = None
-        if custom_cfg.INPUT.BRIGHTNESS.ENABLED:
-            self.bright_gen = T.RandomBrightness(custom_cfg.INPUT.BRIGHTNESS.RANGE[0], custom_cfg.INPUT.BRIGHTNESS.RANGE[1])
+        if cfg.INPUT.BRIGHTNESS.ENABLED:
+            self.bright_gen = T.RandomBrightness(cfg.INPUT.BRIGHTNESS.RANGE[0], cfg.INPUT.BRIGHTNESS.RANGE[1])
 
         self.sat_gen = None
-        if custom_cfg.INPUT.SATURATION.ENABLED:
-            self.sat_gen = T.RandomSaturation(custom_cfg.INPUT.SATURATION.RANGE[0], custom_cfg.INPUT.SATURATION.RANGE[1])
+        if cfg.INPUT.SATURATION.ENABLED:
+            self.sat_gen = T.RandomSaturation(cfg.INPUT.SATURATION.RANGE[0], cfg.INPUT.SATURATION.RANGE[1])
             
         self.extent_gen = None
-        if custom_cfg.INPUT.EXTENT.ENABLED:
-            self.extent_gen = T.RandomExtent(scale_range=(1, 1), shift_range=custom_cfg.INPUT.EXTENT.SHIFT_RANGE)
+        if cfg.INPUT.EXTENT.ENABLED:
+            self.extent_gen = T.RandomExtent(scale_range=(1, 1), shift_range=cfg.INPUT.EXTENT.SHIFT_RANGE)
         
         self.crop_gen = None
         if cfg.INPUT.CROP.ENABLED:
@@ -41,19 +40,17 @@ class MachikadoDatasetMapper:
             logging.getLogger(__name__).info('CropGen used in training: ' + str(self.crop_gen))
         
         self.rotate_gen = None
-        if custom_cfg.INPUT.ROTATE.ENABLED:
-            self.rotate_gen = T.RandomRotation(custom_cfg.INPUT.ROTATE.ANGLE, expand=False)
+        if cfg.INPUT.ROTATE.ENABLED:
+            self.rotate_gen = T.RandomRotation(cfg.INPUT.ROTATE.ANGLE, expand=False)
         
         self.shear_gen = None
-        if custom_cfg.INPUT.SHEAR.ENABLED:
-            self.shear_gen = RandomShear(custom_cfg.INPUT.SHEAR.ANGLE_H_RANGE, custom_cfg.INPUT.SHEAR.ANGLE_V_RANGE)
+        if cfg.INPUT.SHEAR.ENABLED:
+            self.shear_gen = RandomShear(cfg.INPUT.SHEAR.ANGLE_H_RANGE, cfg.INPUT.SHEAR.ANGLE_V_RANGE)
 
         self.tfm_gens = utils.build_transform_gen(cfg, is_train)
         
         self.img_format = cfg.INPUT.FORMAT
         self.mask_format = cfg.INPUT.MASK_FORMAT
-        
-        self.custom_cfg = custom_cfg
         self.is_train = is_train
 
     def __call__(self, dataset_dict):

@@ -83,7 +83,10 @@ class ShearTransform(Transform):
                 coords = np.asarray(poly.exterior.coords)
                 cropped_polygons.append(coords[:-1])  # ポリゴンの終端が先端になっているので終端を削除
         
-        assert len(cropped_polygons) > 0, 'せん断変形の結果、有効な領域が残らなかった'
+        if len(cropped_polygons) == 0:
+            print('警告: せん断変形の結果、有効な領域が残らなかった')
+
+#        assert len(cropped_polygons) > 0, 'せん断変形の結果、有効な領域が残らなかった'
         
         return cropped_polygons
 

@@ -20,11 +20,21 @@ https://github.com/nTAKAn/detectron2_Machikado
 ---
 ## 3. カスタム
 
-### [(1) データセットマッパー](./README_custom1.md)
+### [データセットマッパー](https://github.com/nTAKAn/detectron2_Machikado2/blob/master/custom1_DatasetMapper.ipynb)
 
-### [(2) トランスフォーム](./README_custom2.md)
+オリジナルの水増し方法です。
 
- 
+### [トランスフォーム](https://github.com/nTAKAn/detectron2_Machikado2/blob/master/custom2_Transform.ipynb)
+
+オリジナルで、画像に変形を加える方法です。
+
+### [トレーナー](https://github.com/nTAKAn/detectron2_Machikado2/blob/master/custom3_training.ipynb)
+
+カスタムした内容で訓練する方法です。
+
 ---
-## 3. 学習・推論
+## 3. 評価
 
+前回と AP, mAP を比較します。
+
+### [custom4_evaluate.ipynb](https://github.com/nTAKAn/detectron2_Machikado2/blob/master/)
