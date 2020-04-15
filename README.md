@@ -2,6 +2,10 @@
 
 前編である「detectron2 for まちカドまぞく」にカスタム機能を追加して精度を高めます。
 
+> 基本的な内容は前回「detectron2 for まちカドまぞく」になります。
+>
+> https://github.com/nTAKAn/detectron2_Machikado
+
 ---
 
 今回は本当の推論画像です。上手くいったのでドヤ顔にしてみました。
