@@ -39,3 +39,8 @@ https://github.com/nTAKAn/detectron2_Machikado
 ### [プレディクタ](https://github.com/nTAKAn/detectron2_Machikado2/blob/master/custom4_evaluate.ipynb)
 
 カスタムしてバッチで推論して、ついでに mAP を見てみます。
+
+---
+## 3. その他
+
+* データセットじゃなくて、個別に画像を推論したい場合は前回を参照ください。
