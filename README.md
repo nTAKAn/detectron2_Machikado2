@@ -22,7 +22,7 @@
 https://github.com/nTAKAn/detectron2_Machikado
 
 ---
-## 3. カスタム
+## 2. カスタム編の内容
 
 ### [データセットマッパー](https://github.com/nTAKAn/detectron2_Machikado2/blob/master/custom1_DatasetMapper.ipynb)
 
@@ -36,9 +36,6 @@ https://github.com/nTAKAn/detectron2_Machikado
 
 カスタムした内容で訓練する方法です。
 
----
-## 3. 評価
+### [プレディクタ](https://github.com/nTAKAn/detectron2_Machikado2/blob/master/custom4_evaluate.ipynb)
 
-前回と AP, mAP を比較します。
-
-### [custom4_evaluate.ipynb](https://github.com/nTAKAn/detectron2_Machikado2/blob/master/custom4_evaluate.ipynb)
+カスタムしてバッチで推論して、ついでに mAP を見てみます。

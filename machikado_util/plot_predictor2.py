@@ -123,3 +123,24 @@ def plot_predictor2(predictor, catalog_name, mask_colors, cat_names, figsize=(16
         titles.append(asset['file_name'])
     
     plot_outputs(inputs=inputs, outputs=outputs, titles=titles, mask_colors=mask_colors, cat_names=cat_names, alpha=0.5, figsize=(16, 24))
+
+
+def plot_predictor_batch(predictor, catalog_name, mask_colors, cat_names, figsize=(16, 24), random_state=None):
+    """
+    予想と表示を行う(バッチ処理版)
+    """
+    if random_state is not None:
+        random.seed(random_state)
+        
+    inputs = []
+    outputs = []
+    titles = []
+    
+    for i, asset in enumerate(random.sample(DatasetCatalog.get(catalog_name), 10)):
+        img = cv2.imread(asset["file_name"])
+        inputs.append(img)
+        titles.append(asset['file_name'])
+
+    outputs = predictor(inputs)
+
+    plot_outputs(inputs=inputs, outputs=outputs, titles=titles, mask_colors=mask_colors, cat_names=cat_names, alpha=0.5, figsize=(16, 24))
