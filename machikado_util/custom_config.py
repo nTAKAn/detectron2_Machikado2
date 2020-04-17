@@ -11,6 +11,7 @@ def append_custom_cfg(cfg):
     cfg.INPUT.EXTENT = CN()
     cfg.INPUT.ROTATE = CN()
     cfg.INPUT.SHEAR = CN()
+    cfg.INPUT.CUTOUT = CN()
 
     # コントラストの変更
     cfg.INPUT.CONTRAST.ENABLED = True
@@ -31,3 +32,8 @@ def append_custom_cfg(cfg):
     cfg.INPUT.SHEAR.ENABLED = True
     cfg.INPUT.SHEAR.ANGLE_H_RANGE = (-10, 10)
     cfg.INPUT.SHEAR.ANGLE_V_RANGE = (-10, 10)
+    # カットアウト
+    cfg.INPUT.CUTOUT.ENABLED = True
+    cfg.INPUT.CUTOUT.NUM_HOLE_RANGE = (5, 20)
+    cfg.INPUT.CUTOUT.RADIUS_RANGE = (0.05, 0.15)
+    cfg.INPUT.CUTOUT.COLOR_RANGE = ([0, 255], [0, 255], [0, 255])

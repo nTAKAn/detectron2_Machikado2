@@ -7,7 +7,7 @@ from detectron2.data import transforms as T
 from detectron2.data import detection_utils as utils
 
 from .ShearTransform import ShearTransform, RandomShear
-
+from .CutoutTransform import CutoutTransform, RandomCutout
 
 class MachikadoDatasetMapper:
     """
@@ -21,18 +21,27 @@ class MachikadoDatasetMapper:
         self.cont_gen = None
         if cfg.INPUT.CONTRAST.ENABLED:
             self.cont_gen = T.RandomContrast(cfg.INPUT.CONTRAST.RANGE[0], cfg.INPUT.CONTRAST.RANGE[1])
+            logging.getLogger(__name__).info('ContGen used in training.')
             
         self.bright_gen = None
         if cfg.INPUT.BRIGHTNESS.ENABLED:
             self.bright_gen = T.RandomBrightness(cfg.INPUT.BRIGHTNESS.RANGE[0], cfg.INPUT.BRIGHTNESS.RANGE[1])
+            logging.getLogger(__name__).info('BrightGen used in training.')
 
         self.sat_gen = None
         if cfg.INPUT.SATURATION.ENABLED:
             self.sat_gen = T.RandomSaturation(cfg.INPUT.SATURATION.RANGE[0], cfg.INPUT.SATURATION.RANGE[1])
-            
+            logging.getLogger(__name__).info('SatGen used in training.')
+        
+        self.cutout_gen = None
+        if cfg.INPUT.CUTOUT.ENABLED:
+            self.cutout_gen = RandomCutout(cfg.INPUT.CUTOUT.NUM_HOLE_RANGE, cfg.INPUT.CUTOUT.RADIUS_RANGE, cfg.INPUT.CUTOUT.COLOR_RANGE)
+            logging.getLogger(__name__).info('CutoutGen used in training.')
+
         self.extent_gen = None
         if cfg.INPUT.EXTENT.ENABLED:
             self.extent_gen = T.RandomExtent(scale_range=(1, 1), shift_range=cfg.INPUT.EXTENT.SHIFT_RANGE)
+            logging.getLogger(__name__).info('ExtentGen used in training.')
         
         self.crop_gen = None
         if cfg.INPUT.CROP.ENABLED:
@@ -42,10 +51,12 @@ class MachikadoDatasetMapper:
         self.rotate_gen = None
         if cfg.INPUT.ROTATE.ENABLED:
             self.rotate_gen = T.RandomRotation(cfg.INPUT.ROTATE.ANGLE, expand=False)
+            logging.getLogger(__name__).info('RotateGen used in training.')
         
         self.shear_gen = None
         if cfg.INPUT.SHEAR.ENABLED:
             self.shear_gen = RandomShear(cfg.INPUT.SHEAR.ANGLE_H_RANGE, cfg.INPUT.SHEAR.ANGLE_V_RANGE)
+            logging.getLogger(__name__).info('ShearGen used in training.')
 
         self.tfm_gens = utils.build_transform_gen(cfg, is_train)
         
@@ -68,7 +79,7 @@ class MachikadoDatasetMapper:
             dataset_dict.pop('sem_seg_file_name', None)
             return dataset_dict
         
-        # 明るさ・コントラスト・彩度
+        # 明るさ・コントラスト・彩度・カットアウト
         if self.cont_gen is not None:
             tfm = self.cont_gen.get_transform(image)
             image = tfm.apply_image(image)
@@ -77,6 +88,9 @@ class MachikadoDatasetMapper:
             image = tfm.apply_image(image)
         if self.sat_gen is not None:
             tfm = self.sat_gen.get_transform(image)
+            image = tfm.apply_image(image)
+        if self.cutout_gen is not None:
+            tfm = self.cutout_gen.get_transform(image)
             image = tfm.apply_image(image)
             
         # アフィン
