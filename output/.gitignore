@@ -2,3 +2,4 @@
 events.*
 metrics.json
 last_checkpoint
+.ipynb_checkpoints/
