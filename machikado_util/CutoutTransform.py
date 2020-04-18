@@ -53,9 +53,9 @@ class RandomCutout(T.TransformGen):
             centers += [(int(np.random.uniform(0, h)), int(np.random.uniform(0, w)))]
             radii += [int(short_len * np.random.uniform(self.radius_range[0], self.radius_range[1]))]
 
-            g = np.random.uniform(self.color_ranges[0][0], self.color_ranges[0][1])
-            b = np.random.uniform(self.color_ranges[1][0], self.color_ranges[1][1])
+            b = np.random.uniform(self.color_ranges[0][0], self.color_ranges[0][1])
+            g = np.random.uniform(self.color_ranges[1][0], self.color_ranges[1][1])
             r = np.random.uniform(self.color_ranges[2][0], self.color_ranges[2][1])
-            colors += [(int(g), int(b), int(r))]
+            colors += [(int(b), int(g), int(r))]
        
         return CutoutTransform(h, w, centers, radii, colors)
