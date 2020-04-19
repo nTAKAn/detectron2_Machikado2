@@ -36,6 +36,6 @@ def plot_dataset_mapper(dataset_dicts, mapper, figsize=(16, 24)):
                 pt = [(x, y) for x, y in zip(_polygon[::2], _polygon[1::2])]
                 ax.add_patch(plt.Polygon(pt, fc='g', alpha=0.5))
 
-        ax.set_title(dataset_dict['file_name'])
+        ax.set_title('{} (h:{}, w:{})'.format(dataset_dict['file_name'], img.shape[0], img.shape[1]))
         ax.axis('off')
     plt.show()
